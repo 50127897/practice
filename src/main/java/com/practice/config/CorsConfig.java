@@ -7,7 +7,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-public class LeyouCorsConfig {
+public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         //1.添加CORS配置信息

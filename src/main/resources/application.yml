@@ -6,4 +6,4 @@ spring:
     username: root
     password: root
 mybatis:
-  type-aliases-package: com.practice.pojo
+  type-aliases-package: com.practice.Entiiy

@@ -1,6 +1,6 @@
 package com.practice.mapper;
 
-import com.practice.pojo.ProjectDoc;
+import com.practice.Entiiy.ProjectDoc;
 import tk.mybatis.mapper.common.Mapper;
 
 /**

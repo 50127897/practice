@@ -1,6 +1,6 @@
 package com.practice.controller;
 
-import com.practice.pojo.Announce;
+import com.practice.Entiiy.Announce;
 import com.practice.service.AnnounceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,7 +1,7 @@
 package com.practice.service;
 
 import com.practice.mapper.AnnounceMapper;
-import com.practice.pojo.Announce;
+import com.practice.Entiiy.Announce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

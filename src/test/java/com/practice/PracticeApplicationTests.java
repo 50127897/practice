@@ -3,13 +3,12 @@ package com.practice;
 
 import com.practice.config.Sha256;
 import com.practice.mapper.*;
-import com.practice.pojo.*;
+import com.practice.Entiiy.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
 
-import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -41,75 +40,86 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads() {
-        for (int i=1 ;i<10;i++) {
-            Member member = new Member();
-            member.setUsername("teacher"+i);
-            member.setName("李教师"+i);
-            member.setPassword("teacher"+i);
-            member.setType(3);
-            memberMapper.insertSelective(member);
-        }
+//        for (int i=1 ;i<10;i++) {
+            List<Member> list = memberMapper.selectAll();
+            System.out.println(list);
+//            Member member = new Member();
+//            member.setUsername("teacher"+i);
+//            member.setName("李教师"+i);
+//            member.setPassword("teacher"+i);
+//            member.setType(3);
+//            memberMapper.insertSelective(member);
+//        }
     }
 
     @Test
     void contextLoads2() {
-        for (int i=1 ;i<10;i++) {
-            Project project = new Project();
-            project.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
-                    "");
-            project.setMember(5);
-            project.setPname("综合实践管理系统"+i);
-            project.setTeacherid(i+10);
-            project.setTeachername("teacher"+i);
-            projectMapper.insertSelective(project);
-        }
+        List<Project> list = this.projectMapper.selectAll();
+        System.out.println(list);
+
+//        for (int i=1 ;i<10;i++) {
+//            Project project = new Project();
+//            project.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
+//                    "");
+//            project.setMember(5);
+//            project.setPname("综合实践管理系统"+i);
+//            project.setTeacherid(i+10);
+//            project.setTeachername("teacher"+i);
+//            projectMapper.insertSelective(project);
+//        }
     }
 
     @Test
     void contextLoads3() {
-        for (int i=1 ;i<10;i++) {
-            Choice choice = new Choice();
-            choice.setMid(i+1);
-            choice.setPid(i);
-            choice.setType(i%3);
-            choiceMapper.insertSelective(choice);
-        }
+        List<Choice> list = this.choiceMapper.selectAll();
+        System.out.println(list);
+//        for (int i=1 ;i<10;i++) {
+//            Choice choice = new Choice();
+//            choice.setMid(i+1);
+//            choice.setPid(i);
+//            choice.setType(i%3);
+//            choiceMapper.insertSelective(choice);
+//        }
     }
 
     @Test
     void contextLoads4() {
-        for (int i=1 ;i<10;i++) {
-            Announce announce = new Announce();
-            announce.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
-                    "");
-            announce.setTitle("选课规则");
-            announce.setType(i%2);
-            announceMapper.insertSelective(announce);
-        }
+        List<Announce> list = this.announceMapper.selectAll();
+        System.out.println(list);
+//        for (int i=1 ;i<10;i++) {
+//            Announce announce = new Announce();
+//            announce.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
+//                    "");
+//            announce.setTitle("选课规则");
+//            announce.setType(i%2);
+//            announceMapper.insertSelective(announce);
+//        }
     }
 
     @Test
     void contextLoads5() {
-        for (int i=1 ;i<10;i++) {
-            ProjectDoc doc = new ProjectDoc();
-            doc.setPdName("文档"+i);
-            doc.setStudentId(i+1);
-            doc.setTeacherName("teacher"+i);
-            doc.setStudentName("admin"+i);
-            doc.setTime(new Date());
-            doc.setType(i%6);
-            doc.setTeacherId(i+10);
-            project_docMapper.insertSelective(doc);
+        List<ProjectDoc> list = this.project_docMapper.selectAll();
+        System.out.println(list);
+//        for (int i=1 ;i<10;i++) {
+//            ProjectDoc doc = new ProjectDoc();
+//            doc.setPdName("文档"+i);
+//            doc.setStudentId(i+1);
+//            doc.setTeacherName("teacher"+i);
+//            doc.setStudentName("admin"+i);
+//            doc.setTime(new Date());
+//            doc.setType(i%6);
+//            doc.setTeacherId(i+10);
+//            project_docMapper.insertSelective(doc);
 
 
-        }
+//        }
     }
     @Test
     void contextLoads6() {
         for (int i=1 ;i<10;i++) {
             ProjectDoc doc = project_docMapper.selectByPrimaryKey(i);
             System.out.println(doc);
-            doc.setUrl("www.baidu.com");
+//            doc.setUrl("www.baidu.com");
             project_docMapper.updateByPrimaryKeySelective(doc);
 
 
@@ -119,13 +129,15 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads7() {
-        for (int i=1 ;i<10;i++) {
-            Pm pm = new Pm();
-            pm.setPid(i);
-            pm.setMid(i+1);
-            pmMapper.insertSelective(pm);
+        List<Pm> list = this.pmMapper.selectAll();
+        System.out.println(list);
+//        for (int i=1 ;i<10;i++) {
+//            Pm pm = new Pm();
+//            pm.setPid(i);
+//            pm.setMid(i+1);
+//            pmMapper.insertSelective(pm);
 
-        }
+//        }
     }
 
     @Test

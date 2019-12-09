@@ -1,7 +1,7 @@
 package com.practice.service;
 
 import com.practice.mapper.MemberMapper;
-import com.practice.pojo.Member;
+import com.practice.Entiiy.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -15,8 +15,8 @@ public class MemberService {
     public Member login(Member member) {
         Example example = new Example(Member.class);
         Example.Criteria criteria = example.createCriteria();
-        if(member.getUsername()!=null) {
-            criteria.andEqualTo("username", member.getUsername());
+        if(member.getUserName()!=null) {
+            criteria.andEqualTo("username", member.getUserName());
         }
         if(member.getPassword()!=null) {
             criteria.andEqualTo("password", member.getPassword());

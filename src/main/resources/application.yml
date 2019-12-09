@@ -1,0 +1,9 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:mysql:///practice_system?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+mybatis:
+  type-aliases-package: com.practice.pojo

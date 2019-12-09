@@ -28,7 +28,7 @@ class PracticeApplicationTests {
     private AnnounceMapper announceMapper;
 
     @Autowired
-    private Project_docMapper project_docMapper;
+    private ProjectDocMapper project_docMapper;
 
     @Autowired
     private PmMapper pmMapper;
@@ -91,14 +91,14 @@ class PracticeApplicationTests {
     @Test
     void contextLoads5() {
         for (int i=1 ;i<10;i++) {
-            Project_doc doc = new Project_doc();
-            doc.setPdname("文档"+i);
-            doc.setStudentid(i+1);
-            doc.setTeachername("teacher"+i);
-            doc.setStudentname("admin"+i);
+            ProjectDoc doc = new ProjectDoc();
+            doc.setPdName("文档"+i);
+            doc.setStudentId(i+1);
+            doc.setTeacherName("teacher"+i);
+            doc.setStudentName("admin"+i);
             doc.setTime(new Date());
             doc.setType(i%6);
-            doc.setTeacherid(i+10);
+            doc.setTeacherId(i+10);
             project_docMapper.insertSelective(doc);
 
 
@@ -107,7 +107,7 @@ class PracticeApplicationTests {
     @Test
     void contextLoads6() {
         for (int i=1 ;i<10;i++) {
-            Project_doc doc = project_docMapper.selectByPrimaryKey(i);
+            ProjectDoc doc = project_docMapper.selectByPrimaryKey(i);
             System.out.println(doc);
             doc.setUrl("www.baidu.com");
             project_docMapper.updateByPrimaryKeySelective(doc);

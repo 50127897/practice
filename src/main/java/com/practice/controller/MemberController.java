@@ -1,15 +1,19 @@
 package com.practice.controller;
 
-import com.practice.Entiiy.Member;
+import com.practice.dto.BaseResp;
+import com.practice.dto.LoginReq;
+import com.practice.dto.LoginResp;
+import com.practice.entity.Member;
 import com.practice.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+/**
+ * 人员controller
+ */
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -17,14 +21,37 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @RequestMapping("login")
-    public ResponseEntity<Member> Login(@RequestBody Member member){
-        member.setPassword(DigestUtils.md5DigestAsHex(member.getPassword().getBytes()));
-        Member loginMember = this.memberService.login(member);
-        if(!ObjectUtils.isEmpty(loginMember)){
-            return ResponseEntity.ok(loginMember);
+    /**
+     * @param loginReq
+     * 登陆功能
+     * @return
+     */
+    @PostMapping("login")
+    public BaseResp Login(@RequestBody LoginReq loginReq){
+        if(loginReq.getUsername() == null || loginReq.getPassword() == null || loginReq.getType() == null){
+            return BaseResp.fail("0004","参数错误");
         }
-        return ResponseEntity.notFound().build();
+
+
+        loginReq.setPassword(DigestUtils.md5DigestAsHex(loginReq.getPassword().getBytes()));
+        Member member= this.memberService.selectByUsername(loginReq.getUsername());
+        if(member == null){
+            return BaseResp.fail("0001","找不到该用户");
+        }else if(!loginReq.getPassword().equals(member.getPassword())){
+            return BaseResp.fail("0002","密码错误");
+        }else if(loginReq.getType() != member.getType()){
+            return BaseResp.fail("0003","用户类型错误，请重新选择管理员，教师，或学生");
+        }
+        LoginResp resp = new LoginResp();
+        resp.setMId(member.getMId());
+        resp.setType(member.getType());
+        return BaseResp.success(resp,"登陆成功");
+//        member.setPassword(DigestUtils.md5DigestAsHex(member.getPassword().getBytes()));
+//        Member loginMember = this.memberService.login(member);
+//        if(!ObjectUtils.isEmpty(loginMember)){
+//            return ResponseEntity.ok(loginMember);
+//        }
+//        return ResponseEntity.notFound().build();
     }
 
     @RequestMapping("/getInfo")

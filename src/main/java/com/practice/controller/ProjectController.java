@@ -1,12 +1,12 @@
 package com.practice.controller;
 
+import com.practice.dto.BaseResp;
 import com.practice.entity.Project;
 import com.practice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,20 +17,24 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @RequestMapping("/addProject")
-    public ResponseEntity<Integer> addProject(@RequestBody Project project){
-        System.out.println(project);
-        Integer result = this.projectService.addProject(project);
-        return  ResponseEntity.ok(result);
+    @PostMapping
+    public ResponseEntity<BaseResp> addProject(@RequestBody @Validated Project project){
+        return projectService.addProject(project);
     }
 
-    @RequestMapping("/QueryAllMyProject")
-    public ResponseEntity<List<Project>> QueryAllMyProject(Integer teacherid){
-        System.out.println(teacherid);
-        List<Project> list = this.projectService.QueryAllMyProject(teacherid);
-        System.out.println(list);
-        return ResponseEntity.ok(list);
+    @PutMapping
+    public ResponseEntity<BaseResp> change(@RequestBody @Validated Project project){
+        return projectService.change(project);
     }
 
 
+    @GetMapping("/{teacherId}")
+    public ResponseEntity<List<Project>> queryAllMyProject(@PathVariable("teacherId") Integer teacherId){
+        return ResponseEntity.ok(this.projectService.queryAllMyProject(teacherId));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity publish(@PathVariable("id") Integer pId){
+        return ResponseEntity.ok(projectService.publish(pId));
+    }
 }

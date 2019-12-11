@@ -1,10 +1,14 @@
 package com.practice.entity;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -25,24 +29,29 @@ public class Project implements Serializable {
     /**
      * 教师id
      */
+    @NotNull(message = "Teacher's id can't be null")
     @Column(name = "teacher_id",columnDefinition = "int")
     private Integer teacherId;
 
     /**
      * 项目名称
      */
+    @NotBlank(message = "Project's name can't be blank")
     @Column(name = "p_name",columnDefinition = "varchar(20)")
     private String pName;
 
     /**
      * 需求人数
      */
+    @Min(value = 1, message = "Member's number can't less than 1")
+    @NotNull(message = "member can't be null")
     @Column(name = "member",columnDefinition = "tinyint")
     private Integer member;
 
     /**
      * 内容
      */
+    @NotBlank(message = "Content can't be blank")
     @Column(name = "content",columnDefinition = "text")
     private String content;
 
@@ -55,6 +64,7 @@ public class Project implements Serializable {
     /**
      * 教师名称
      */
+    @NotBlank(message = "Teacher's name can't be blank")
     @Column(name = "teacher_name",columnDefinition = "varchar(12)")
     private String teacherName;
 

@@ -3,6 +3,7 @@ package com.practice.controller;
 import com.practice.dto.BaseResp;
 import com.practice.dto.LoginReq;
 import com.practice.dto.LoginResp;
+import com.practice.dto.MemberResp;
 import com.practice.entity.Member;
 import com.practice.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,21 +47,25 @@ public class MemberController {
         resp.setMId(member.getMId());
         resp.setType(member.getType());
         return BaseResp.success(resp,"登陆成功");
-//        member.setPassword(DigestUtils.md5DigestAsHex(member.getPassword().getBytes()));
-//        Member loginMember = this.memberService.login(member);
-//        if(!ObjectUtils.isEmpty(loginMember)){
-//            return ResponseEntity.ok(loginMember);
-//        }
-//        return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping("/getInfo")
-    public ResponseEntity<Member> getInfo(Integer mid){
+    @GetMapping("/{mid}")
+    public BaseResp<Member> getInfo(@PathVariable Integer mid){
         Member member =this.memberService.getInfo(mid);
         if(ObjectUtils.isEmpty(member)){
-            return ResponseEntity.notFound().build();
+            return BaseResp.fail("0001","找不到用户");
         }
-        return ResponseEntity.ok(member);
+        MemberResp resp = new MemberResp();
+        resp.setAddress(member.getAddress());
+        resp.setClasses(member.getClasses());
+        resp.setCollege(member.getCollege());
+        resp.setGrade(member.getGrade());
+        resp.setMajor(member.getMajor());
+        resp.setName(member.getName());
+        resp.setPhone(member.getPhone());
+        resp.setUserName(member.getUserName());
+
+        return BaseResp.success(resp);
     }
 
     @RequestMapping("/update")

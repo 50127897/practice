@@ -1,4 +1,4 @@
-package com.practice.Entiiy;
+package com.practice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -45,9 +45,9 @@ public class Announce implements Serializable {
     /**
      *通知创建日期
      */
-    @Column(name = "time",columnDefinition = "date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date time;
+    @Column(name = "create_time",columnDefinition = "date")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date createTime;
 
 
 }

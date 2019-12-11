@@ -1,4 +1,4 @@
-package com.practice.Entiiy;
+package com.practice.entity;
 
 import lombok.Data;
 
@@ -62,8 +62,8 @@ public class ProjectDoc implements Serializable {
     /**
      * 上传日期
      */
-    @Column(name = "time",columnDefinition = "int")
-    private Date time;
+    @Column(name = "create_time",columnDefinition = "int")
+    private Date createTime;
 
     /**
      * 文档路径

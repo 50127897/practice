@@ -1,9 +1,12 @@
 server:
   port: 8088
 spring:
+  jackson:
+    date-format: yyyy-MM-dd
+    time-zone: GMT+8
   datasource:
     url: jdbc:mysql:///practice_system?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
 mybatis:
-  type-aliases-package: com.practice.Entiiy
+  type-aliases-package: com.practice.entity

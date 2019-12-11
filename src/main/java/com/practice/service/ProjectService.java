@@ -1,7 +1,7 @@
 package com.practice.service;
 
 import com.practice.mapper.ProjectMapper;
-import com.practice.Entiiy.Project;
+import com.practice.entity.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;

@@ -1,4 +1,4 @@
-package com.practice.Entiiy;
+package com.practice.entity;
 
 import lombok.Data;
 
@@ -9,18 +9,18 @@ import java.io.Serializable;
 
 /**
  * @author hap
- *志愿
+ *项目学生表
  */
 @Data
-@Table(name = "choice",schema = "practice_system")
-public class Choice implements Serializable {
+@Table(name = "pm",schema = "practice_system")
+public class Pm implements Serializable {
 
     /**
-     * 志愿编号
+     * 项目学生表编号
      */
-    @Column(name = "c_id",columnDefinition = "int")
     @Id
-    private Integer cId;
+    @Column(name = "pm_id",columnDefinition = "int")
+    private Integer pmId;
 
     /**
      * 项目id
@@ -33,12 +33,6 @@ public class Choice implements Serializable {
      */
     @Column(name = "m_id",columnDefinition = "int")
     private Integer mId;
-
-    /**
-     * 类型 1第一志愿 2第二志愿 3第三志愿
-     */
-    @Column(name = "type",columnDefinition = "tinyint")
-    private Integer type;
 
 
 }

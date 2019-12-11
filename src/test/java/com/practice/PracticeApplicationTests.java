@@ -3,7 +3,7 @@ package com.practice;
 
 import com.practice.config.Sha256;
 import com.practice.mapper.*;
-import com.practice.Entiiy.*;
+import com.practice.entity.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

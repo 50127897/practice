@@ -1,6 +1,6 @@
 package com.practice.controller;
 
-import com.practice.Entiiy.Project;
+import com.practice.entity.Project;
 import com.practice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

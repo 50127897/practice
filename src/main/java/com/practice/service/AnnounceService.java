@@ -1,7 +1,7 @@
 package com.practice.service;
 
 import com.practice.mapper.AnnounceMapper;
-import com.practice.Entiiy.Announce;
+import com.practice.entity.Announce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,13 +30,17 @@ public class AnnounceService {
         return announceMapper.selectByExample(example);
     }
 
+
+    public Announce selectByPrimaryKey(Integer aid){
+        return this.announceMapper.selectByPrimaryKey(aid);
+    }
     public int deleteById(Integer id) {
         return this.announceMapper.deleteByPrimaryKey(id);
     }
 
     @Transactional
     public int addAnnounce(Announce announce) {
-        announce.setTime(new Date());
+        announce.setCreateTime(new Date());
         return this.announceMapper.insertSelective(announce);
     }
 }

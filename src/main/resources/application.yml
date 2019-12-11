@@ -2,7 +2,7 @@ server:
   port: 8088
 spring:
   jackson:
-    date-format: yyyy-MM-dd
+    date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   datasource:
     url: jdbc:mysql:///practice_system?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8

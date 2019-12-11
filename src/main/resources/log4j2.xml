@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration status="info">
+    <!--先定义所有的appender-->
+    <appenders>
+        <!--这个输出控制台的配置-->
+        <console name="Console" target="SYSTEM_OUT">
+            <!--输出日志的格式-->
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%t][%level][%C:%L][%traceId][%userId] %m%n"/>
+        </console>
+
+        <!--须更改成自己项目保存的日志名-->
+        <RollingRandomAccessFile name="logfile" fileName="practice_system.log"
+                                 filePattern="practice_system.log-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%t][%level][%C:%L][%traceId][%userId] %m%n"/>   
+            <Policies>                     
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>                 
+            </Policies>
+                    
+            <DefaultRolloverStrategy max="30"/>
+        </RollingRandomAccessFile>
+    </appenders>
+
+    <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效-->
+    <loggers>
+        <root level="info" includeLocation="true">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="logfile"/>
+        </root>
+    </loggers>
+
+</configuration>
+

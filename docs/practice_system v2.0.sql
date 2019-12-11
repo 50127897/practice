@@ -25,13 +25,13 @@ CREATE TABLE `announce` (
   `type` tinyint(1) NOT NULL COMMENT '通知类型 1教师 2学生',
   `title` varchar(32) NOT NULL COMMENT '通知标题',
   `content` text NOT NULL COMMENT '通知内容',
-  `time` date NOT NULL COMMENT '通知日期',
+  `create_time` date NOT NULL COMMENT '通知日期',
   PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Data for the table `announce` */
 
-insert  into `announce`(`a_id`,`type`,`title`,`content`,`time`) values (6,2,'选课规则','选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。','2019-12-06'),(8,2,'选课规则','选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。','2019-12-05'),(9,1,'选课规则','选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。','2019-12-20'),(10,2,'选课规则','你随便看','2019-12-23'),(11,2,'aaa','<p>aa</p>','2019-12-01'),(12,1,'eeeee','<p>eee</p><p>eee</p><p>ee</p>','2019-12-01'),(13,1,'1123','<p><strong>axxzxxsxz</strong></p><p><strong><em>adxadaxX</em></strong></p><p><strong style=\"color: rgb(230, 0, 0);\"><em>xzccxcsdd</em></strong></p>','2019-12-04');
+insert  into `announce`(`a_id`,`type`,`title`,`content`,`create_time`) values (8,2,'选课规则','选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。','2019-12-05'),(13,1,'1123','<p><strong>axxzxxsxz</strong></p><p><strong><em>adxadaxX</em></strong></p><p><strong style=\"color: rgb(230, 0, 0);\"><em>xzccxcsdd</em></strong></p>','2019-12-04'),(14,1,'aaaaaaaa','<p>aaa</p><p>bbb</p><p>ccc</p>','2019-12-10'),(17,2,'选课规则 新','<p>选课规则：</p><p>		学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。</p><p>		若三个志愿都没选到，则进入二次选择。</p><p>		从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 </p><p>		可以重复提交，已最后一次提交为准。</p>','2019-12-10'),(18,1,'选课规则 新','<p>选课规则：</p><p>		学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。</p><p>		若三个志愿都没选到，则进入二次选择。</p><p>		从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 </p><p>		可以重复提交，已最后一次提交为准。</p>','2019-12-10'),(19,2,'axx','<p>选课规则：</p><p>学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。</p><p>若三个志愿都没选到，则进入二次选择。</p><p>从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。</p><p>可以重复提交，已最后一次提交为准。</p>','2019-12-10'),(20,2,'aaaaaa','<p>选课规则：</p><p>学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。</p><p>若三个志愿都没选到，则进入二次选择。</p><p>从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。</p><p>可以重复提交，已最后一次提交为准。</p>','2019-12-10'),(21,2,'a','<pre class=\"ql-syntax\" spellcheck=\"false\">key\n</pre><p><br></p>','2019-12-10'),(22,2,'v','<pre class=\"ql-syntax\" spellcheck=\"false\">key\n</pre><p><br></p>','2019-12-10'),(23,2,'sdfdscsd','<pre class=\"ql-syntax\" spellcheck=\"false\">this.newAnnounce\n</pre><p><br></p>','2019-12-10');
 
 /*Table structure for table `choice` */
 
@@ -144,7 +144,7 @@ CREATE TABLE `project_doc` (
   `student_name` varchar(20) NOT NULL COMMENT '学生姓名',
   `teacher_id` int(12) NOT NULL COMMENT '教师id',
   `teacher_name` varchar(20) NOT NULL COMMENT '教师名称',
-  `time` date NOT NULL COMMENT '上传日期',
+  `create_time` date NOT NULL COMMENT '上传日期',
   `url` varchar(128) DEFAULT NULL COMMENT '文档路径',
   PRIMARY KEY (`pd_id`),
   KEY `student_id` (`student_id`),
@@ -155,7 +155,7 @@ CREATE TABLE `project_doc` (
 
 /*Data for the table `project_doc` */
 
-insert  into `project_doc`(`pd_id`,`pd_name`,`type`,`student_id`,`student_name`,`teacher_id`,`teacher_name`,`time`,`url`) values (1,'文档1',1,2,'admin1',11,'teacher1','2019-11-30','www.baidu.com'),(2,'文档2',2,3,'admin2',12,'teacher2','2019-11-30','www.baidu.com'),(3,'文档3',3,4,'admin3',13,'teacher3','2019-11-30','www.baidu.com'),(4,'文档4',4,5,'admin4',14,'teacher4','2019-11-30','www.baidu.com'),(5,'文档5',5,6,'admin5',15,'teacher5','2019-11-30','www.baidu.com'),(6,'文档6',0,7,'admin6',16,'teacher6','2019-11-30','www.baidu.com'),(7,'文档7',1,8,'admin7',17,'teacher7','2019-11-30','www.baidu.com'),(8,'文档8',2,9,'admin8',18,'teacher8','2019-11-30','www.baidu.com'),(9,'文档9',3,10,'admin9',19,'teacher9','2019-11-30','www.baidu.com');
+insert  into `project_doc`(`pd_id`,`pd_name`,`type`,`student_id`,`student_name`,`teacher_id`,`teacher_name`,`create_time`,`url`) values (1,'文档1',1,2,'admin1',11,'teacher1','2019-11-30','www.baidu.com'),(2,'文档2',2,3,'admin2',12,'teacher2','2019-11-30','www.baidu.com'),(3,'文档3',3,4,'admin3',13,'teacher3','2019-11-30','www.baidu.com'),(4,'文档4',4,5,'admin4',14,'teacher4','2019-11-30','www.baidu.com'),(5,'文档5',5,6,'admin5',15,'teacher5','2019-11-30','www.baidu.com'),(6,'文档6',0,7,'admin6',16,'teacher6','2019-11-30','www.baidu.com'),(7,'文档7',1,8,'admin7',17,'teacher7','2019-11-30','www.baidu.com'),(8,'文档8',2,9,'admin8',18,'teacher8','2019-11-30','www.baidu.com'),(9,'文档9',3,10,'admin9',19,'teacher9','2019-11-30','www.baidu.com');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

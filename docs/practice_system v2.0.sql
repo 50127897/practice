@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.42 (64 bit)
 MySQL - 5.5.27 : Database - practice_system
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -123,6 +124,7 @@ CREATE TABLE `project` (
   `first` tinyint(1) DEFAULT '0' COMMENT '第一志愿人数',
   `second` tinyint(1) DEFAULT '0' COMMENT '第二志愿人数',
   `third` tinyint(1) DEFAULT '0' COMMENT '第三志愿人数',
+  `reject_content` varchar(255) comment '拒绝原因',
   PRIMARY KEY (`p_id`),
   KEY `teacher_id` (`teacher_id`),
   CONSTRAINT `project_ibfk_1` FOREIGN KEY (`teacher_id`) REFERENCES `member` (`m_id`)

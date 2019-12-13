@@ -1,10 +1,10 @@
 package com.practice.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.practice.entity.ProjectDoc;
-import tk.mybatis.mapper.common.Mapper;
 
 /**
  * @author huanganping
  */
-public interface ProjectDocMapper extends Mapper<ProjectDoc> {
+public interface ProjectDocMapper extends BaseMapper<ProjectDoc> {
 }

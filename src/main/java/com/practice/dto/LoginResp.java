@@ -16,4 +16,9 @@ public class LoginResp {
      * 登陆类型
      */
     private Integer type;
+
+    /**
+     * token
+     */
+    private String token;
 }

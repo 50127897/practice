@@ -1,7 +1,7 @@
 package com.practice.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.practice.entity.Announce;
-import tk.mybatis.mapper.common.Mapper;
 
-public interface AnnounceMapper extends Mapper<Announce> {
+public interface AnnounceMapper extends BaseMapper<Announce> {
 }

@@ -1,11 +1,13 @@
 package com.practice;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import tk.mybatis.spring.annotation.MapperScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @MapperScan("com.practice.mapper")
+@EnableAspectJAutoProxy
 public class PracticeApplication {
 
     public static void main(String[] args) {

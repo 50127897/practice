@@ -1,7 +1,7 @@
 package com.practice.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.practice.entity.Member;
-import tk.mybatis.mapper.common.Mapper;
 
-public interface MemberMapper extends Mapper<Member> {
+public interface MemberMapper extends BaseMapper<Member> {
 }

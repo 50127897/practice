@@ -58,6 +58,13 @@ public class BaseResp<T> implements Serializable {
         return baseResp;
     }
 
+    public static BaseResp forbidden(){
+        BaseResp baseResp = new BaseResp<>();
+        baseResp.setMessage("暂无权限");
+        baseResp.setResultCode("403");
+        return baseResp;
+    }
+
     public static BaseResp fail(){
         BaseResp baseResp = new BaseResp<>();
         baseResp.setMessage("服务器内部有误");

@@ -1,4 +1,9 @@
 
+登录：POST /member/login
+登出：
+
 新增项目：POST /project
 更新项目：PUT /project
-根据老师id查询：GET /project/{teacherId}
+老师申请课程审核：PUT /project/{id}
+根据参数查询：GET /project
+管理员审批：Patch /project

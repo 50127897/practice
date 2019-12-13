@@ -1,7 +1,7 @@
 package com.practice.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.practice.entity.Project;
-import tk.mybatis.mapper.common.Mapper;
 
-public interface ProjectMapper extends Mapper<Project> {
+public interface ProjectMapper extends BaseMapper<Project> {
 }

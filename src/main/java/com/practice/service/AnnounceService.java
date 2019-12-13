@@ -1,12 +1,11 @@
 package com.practice.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.practice.mapper.AnnounceMapper;
 import com.practice.entity.Announce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
@@ -18,29 +17,22 @@ public class AnnounceService {
     private AnnounceMapper announceMapper;
 
     public List<Announce> selectAnnounce(Integer type, String title) {
-        Example example = new Example(Announce.class);
-        Example.Criteria criteria = example.createCriteria();
-        if(type!=null){
-            criteria.andEqualTo("type",type);
-        }
-        if(!StringUtils.isEmpty(title)){
-            criteria.andLike("title","%"+title+"%").orEqualTo("title",title);
-
-        }
-        return announceMapper.selectByExample(example);
+        return announceMapper.selectList(
+                new QueryWrapper<Announce>()
+                        .eq(type!=null,"type",type)
+                        .like(!StringUtils.isEmpty(title),"title",title));
     }
 
 
     public Announce selectByPrimaryKey(Integer aid){
-        return this.announceMapper.selectByPrimaryKey(aid);
+        return this.announceMapper.selectById(aid);
     }
     public int deleteById(Integer id) {
-        return this.announceMapper.deleteByPrimaryKey(id);
+        return this.announceMapper.deleteById(id);
     }
 
-    @Transactional
     public int addAnnounce(Announce announce) {
         announce.setCreateTime(new Date());
-        return this.announceMapper.insertSelective(announce);
+        return this.announceMapper.insert(announce);
     }
 }

@@ -41,8 +41,8 @@ class PracticeApplicationTests {
     @Test
     void contextLoads() {
 //        for (int i=1 ;i<10;i++) {
-            List<Member> list = memberMapper.selectAll();
-            System.out.println(list);
+//            List<Member> list = memberMapper.selectAll();
+//            System.out.println(list);
 //            Member member = new Member();
 //            member.setUsername("teacher"+i);
 //            member.setName("李教师"+i);
@@ -54,8 +54,8 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads2() {
-        List<Project> list = this.projectMapper.selectAll();
-        System.out.println(list);
+//        List<Project> list = this.projectMapper.selectAll();
+//        System.out.println(list);
 
 //        for (int i=1 ;i<10;i++) {
 //            Project project = new Project();
@@ -71,8 +71,8 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads3() {
-        List<Choice> list = this.choiceMapper.selectAll();
-        System.out.println(list);
+//        List<Choice> list = this.choiceMapper.selectAll();
+//        System.out.println(list);
 //        for (int i=1 ;i<10;i++) {
 //            Choice choice = new Choice();
 //            choice.setMid(i+1);
@@ -84,8 +84,8 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads4() {
-        List<Announce> list = this.announceMapper.selectAll();
-        System.out.println(list);
+//        List<Announce> list = this.announceMapper.selectAll();
+//        System.out.println(list);
 //        for (int i=1 ;i<10;i++) {
 //            Announce announce = new Announce();
 //            announce.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
@@ -98,8 +98,8 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads5() {
-        List<ProjectDoc> list = this.project_docMapper.selectAll();
-        System.out.println(list);
+//        List<ProjectDoc> list = this.project_docMapper.selectAll();
+//        System.out.println(list);
 //        for (int i=1 ;i<10;i++) {
 //            ProjectDoc doc = new ProjectDoc();
 //            doc.setPdName("文档"+i);
@@ -117,10 +117,10 @@ class PracticeApplicationTests {
     @Test
     void contextLoads6() {
         for (int i=1 ;i<10;i++) {
-            ProjectDoc doc = project_docMapper.selectByPrimaryKey(i);
-            System.out.println(doc);
-//            doc.setUrl("www.baidu.com");
-            project_docMapper.updateByPrimaryKeySelective(doc);
+//            ProjectDoc doc = project_docMapper.selectByPrimaryKey(i);
+//            System.out.println(doc);
+////            doc.setUrl("www.baidu.com");
+//            project_docMapper.updateByPrimaryKeySelective(doc);
 
 
 
@@ -129,8 +129,8 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads7() {
-        List<Pm> list = this.pmMapper.selectAll();
-        System.out.println(list);
+//        List<Pm> list = this.pmMapper.selectAll();
+//        System.out.println(list);
 //        for (int i=1 ;i<10;i++) {
 //            Pm pm = new Pm();
 //            pm.setPid(i);
@@ -153,14 +153,14 @@ class PracticeApplicationTests {
     }
     @Test
     void contextLoads9() {
-        List<Member> list = memberMapper.selectAll();
-        list.forEach(member -> {
-            String password = Sha256.getSHA256(member.getPassword());
-            String newPassWord = DigestUtils.md5DigestAsHex(password.getBytes());
-            member.setPassword(newPassWord);
-            memberMapper.updateByPrimaryKeySelective(member);
-
-        });
+//        List<Member> list = memberMapper.selectAll();
+//        list.forEach(member -> {
+//            String password = Sha256.getSHA256(member.getPassword());
+//            String newPassWord = DigestUtils.md5DigestAsHex(password.getBytes());
+//            member.setPassword(newPassWord);
+//            memberMapper.updateByPrimaryKeySelective(member);
+//
+//        });
     }
 
 

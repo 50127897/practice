@@ -1,7 +1,7 @@
 package com.practice.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.practice.entity.Choice;
-import tk.mybatis.mapper.common.Mapper;
 
-public interface ChoiceMapper extends Mapper<Choice> {
+public interface ChoiceMapper extends BaseMapper<Choice> {
 }

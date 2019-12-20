@@ -15,6 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Access {
 
-    AccessPeople[] value();
+    AccessPeople[] value() default {AccessPeople.Admin, AccessPeople.Teacher, AccessPeople.Student};
 
+    AccessPeople[] exclude() default {};
 }

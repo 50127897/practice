@@ -1,5 +1,6 @@
 package com.practice.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -90,6 +91,12 @@ public class Project extends Model implements Serializable {
      * 拒绝内容
      */
     private String rejectContent;
+
+    /**
+     * 选择的学生ID
+     */
+    @TableField("selected_students_id")
+    private String selectedIds;
 
     @Override
     protected Serializable pkVal() {

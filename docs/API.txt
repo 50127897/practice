@@ -7,3 +7,6 @@
 老师申请课程审核：PUT /project/{id}
 根据参数查询：GET /project
 管理员审批：Patch /project
+
+根据项目id获取学生信息(假如参数没有type，获取被老师选中的)：GET /project/students
+学生提交志愿：POST /project/choice   (参数choice里面有带有原本的id则为更新，无则新增)

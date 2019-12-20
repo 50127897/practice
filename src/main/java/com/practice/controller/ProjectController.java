@@ -1,10 +1,12 @@
 package com.practice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.practice.dto.BaseResp;
-import com.practice.dto.ProjectReq;
-import com.practice.dto.ResponseJsonEntity;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.practice.annotation.Access;
+import com.practice.dto.*;
+import com.practice.entity.Choice;
 import com.practice.entity.Project;
+import com.practice.status.AccessPeople;
 import com.practice.status.ProjectStatus;
 import com.practice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author user
+ */
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
@@ -76,6 +81,20 @@ public class ProjectController {
         }
         project.insertOrUpdate();
         return ResponseJsonEntity.ok("Approve success");
+    }
+
+
+    @Access(exclude = AccessPeople.Student)
+    @GetMapping("/students")
+    public ResponseEntity getStuOnProject(@RequestBody ProjectStudent student){
+        return projectService.getStudentInfo(student);
+    }
+
+
+    @PostMapping("/choice")
+    public ResponseEntity choiceProject(@RequestBody List<Choice> choices){
+        choices.forEach(Model::insertOrUpdate);
+        return ResponseJsonEntity.ok("选择成功");
     }
 
 }

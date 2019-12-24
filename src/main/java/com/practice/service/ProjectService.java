@@ -35,12 +35,26 @@ public class ProjectService {
                 : ResponseEntity.ok(BaseResp.fail("00001", "修改失败"));
     }
 
+    public ResponseEntity<BaseResp> delete(Integer pid) {
+        int result = projectMapper.deleteById(pid);
+        return result == 1 ? ResponseEntity.ok(BaseResp.success())
+                : ResponseEntity.ok(BaseResp.fail("00001", "删除失败"));
+    }
+
     public ResponseEntity publish(Integer pId) {
         Project project = projectMapper.selectById(pId);
         project.setStatus(2);
         int result = projectMapper.updateById(project);
         return result == 1 ? ResponseEntity.ok(BaseResp.success())
                 : ResponseEntity.ok(BaseResp.fail("00001", "发布失败"));
+    }
+
+    public ResponseEntity cancel(Integer pId) {
+        Project project = projectMapper.selectById(pId);
+        project.setStatus(1);
+        int result = projectMapper.updateById(project);
+        return result == 1 ? ResponseEntity.ok(BaseResp.success())
+                : ResponseEntity.ok(BaseResp.fail("00001", "撤销失败"));
     }
 
 

@@ -2,6 +2,7 @@ package com.practice.dto;
 
 import lombok.Data;
 
+
 import java.util.Date;
 
 /**
@@ -21,5 +22,8 @@ public class AnnounceResp {
      * 通知时间
      */
     private Date time;
-
+    /**
+     *通知内容
+     */
+    private String content;
 }

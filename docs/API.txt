@@ -1,12 +1,14 @@
 
-登录：POST /member/login
-登出：
+登录：POST /member/login                   ok
+登出：                                     ok
 
-新增项目：POST /project
-更新项目：PUT /project
-老师申请课程审核：PUT /project/{id}
-根据参数查询：GET /project
-管理员审批：Patch /project
+新增项目：POST /project                            ok
+更新项目：PUT /project                              ok
+老师申请课程审核：PUT /project/{id}                  ok
+老师撤销申请课程审核：PUT /project/cancel/{id}       *ok
+老师删除课程信息：DELETE /project                    *ok
+根据参数查询：GET /project                             ok
+管理员审批：Patch /project                            ok
 
 根据项目id获取学生信息(假如参数没有type，获取被老师选中的)：GET /project/students
 学生提交志愿：POST /project/choice   (参数choice里面有带有原本的id则为更新，无则新增)

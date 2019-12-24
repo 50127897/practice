@@ -1,13 +1,20 @@
 package com.practice;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.config.Sha256;
 import com.practice.mapper.*;
 import com.practice.entity.*;
+import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.DigestUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -126,6 +133,27 @@ class PracticeApplicationTests {
 
         }
     }
+
+    /**
+     * 分页查询
+     */
+    @Test
+    public void selectByPage() {
+//        IPage<Project> iPage = new Project().selectPage(new Page<Project>(1, 2),
+//                null
+//        );
+//        try {
+//            iPage.setCurrent(3);
+//            System.out.println(new ObjectMapper().writeValueAsString(iPage));
+//        } catch (JsonProcessingException e) {
+//            e.printStackTrace();
+//        }
+
+        /*
+        {"records":[],"total":22,"size":2,"current":1,"pages":11}
+         */
+    }
+
 
     @Test
     void contextLoads7() {

@@ -1,5 +1,8 @@
 package com.practice.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -16,18 +19,21 @@ public class Choice extends Model implements Serializable {
     /**
      * 志愿编号
      */
+    @TableId(value = "c_id",type = IdType.AUTO)
     private Integer cId;
 
     /**
      * 项目id
      */
     @NotNull(message = "Project id can't be null")
+    @TableField(value = "p_id")
     private Integer pId;
 
     /**
      * 学生id
      */
     @NotNull(message = "Student id can't be null")
+    @TableField(value = "m_id")
     private Integer mId;
 
     /**

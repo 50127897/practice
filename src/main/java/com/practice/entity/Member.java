@@ -1,5 +1,8 @@
 package com.practice.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -15,11 +18,13 @@ public class Member extends Model implements Serializable {
     /**
      * 人员编号
      */
+    @TableId(value = "m_id",type = IdType.AUTO)
     private Integer mId;
 
     /**
      * 用户名（学号）
      */
+    @TableField(value = "user_name")
     private String userName;
 
     /**
@@ -81,16 +86,19 @@ public class Member extends Model implements Serializable {
     /**
      * 学生的老师id
      */
+    @TableField(value = "teacher_id")
     private Integer teacherId;
 
     /**
      * 项目id
      */
+    @TableField(value = "project_id")
     private Integer projectId;
 
     /**
      * 项目名称
      */
+    @TableField(value = "project_name")
     private String projectName;
 
     @Override

@@ -37,7 +37,7 @@ public class MemberController {
             return ResponseEntity.ok(BaseResp.fail("0001", "找不到该用户"));
         } else if (!loginReq.getPassword().equals(member.getPassword())) {
             return ResponseEntity.ok(BaseResp.fail("0002", "密码错误"));
-        } else if (loginReq.getType().equals(member.getType())) {
+        } else if (!loginReq.getType().equals(member.getType())) {
             return ResponseEntity.ok(BaseResp.fail("0003", "用户类型错误，请重新选择管理员，教师，或学生"));
         }
         String token = memberService.saveToken(member);
@@ -63,17 +63,16 @@ public class MemberController {
         resp.setName(member.getName());
         resp.setPhone(member.getPhone());
         resp.setUserName(member.getUserName());
+        resp.setEmail(member.getEmail());
 
         return ResponseEntity.ok(BaseResp.success(resp));
     }
 
-    @RequestMapping("/update")
-    public ResponseEntity<Integer> update(@RequestBody Member member) {
+    @PutMapping
+    public ResponseEntity<BaseResp> update(@RequestBody Member member) {
         Integer result = this.memberService.updateByPrimaryKey(member);
-        if (result > 0) {
-            return ResponseEntity.ok(result);
-        }
-        return ResponseEntity.ok(new Integer(0));
+
+        return result == 1 ? ResponseEntity.ok(BaseResp.success("修改成功")):ResponseEntity.ok(BaseResp.fail("0001","修改失败"));
     }
 
     @RequestMapping("/logout")

@@ -1,6 +1,8 @@
 package com.practice.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -19,18 +21,21 @@ public class Project extends Model implements Serializable {
     /**
      * 项目编号
      */
+    @TableId(value = "p_id",type = IdType.AUTO)
     private Integer pId;
 
     /**
      * 教师id
      */
     @NotNull(message = "Teacher's id can't be null")
+    @TableField(value = "teacher_id")
     private Integer teacherId;
 
     /**
      * 项目名称
      */
     @NotBlank(message = "Project's name can't be blank")
+    @TableField(value = "p_name")
     private String pName;
 
     /**
@@ -55,6 +60,7 @@ public class Project extends Model implements Serializable {
      * 教师名称
      */
     @NotBlank(message = "Teacher's name can't be blank")
+    @TableField(value = "teacher_name")
     private String teacherName;
 
     /**
@@ -90,12 +96,13 @@ public class Project extends Model implements Serializable {
     /**
      * 拒绝内容
      */
+    @TableField(value = "reject_content")
     private String rejectContent;
 
     /**
      * 选择的学生ID
      */
-    @TableField("selected_students_id")
+    @TableField(value = "selected_students_id")
     private String selectedIds;
 
     @Override

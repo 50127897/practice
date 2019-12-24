@@ -48,4 +48,9 @@ public class MemberResp {
      * 姓名
      */
     private String name;
+    /**
+     *
+     * 电子邮箱
+     */
+    private String email;
 }

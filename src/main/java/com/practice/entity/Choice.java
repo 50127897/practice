@@ -42,6 +42,9 @@ public class Choice extends Model implements Serializable {
     @NotNull(message = "Choice type can't be null")
     private Integer type;
 
+    @TableField(value = "choice_intro")
+    private String choiceIntro;
+
     @Override
     protected Serializable pkVal() {
         return cId;

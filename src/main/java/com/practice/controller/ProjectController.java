@@ -13,9 +13,11 @@ import com.practice.status.ProjectStatus;
 import com.practice.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -134,7 +136,13 @@ public class ProjectController {
     @PostMapping("/choice")
     public ResponseEntity choiceProject(@RequestBody List<Choice> choices){
         choices.forEach(Model::insertOrUpdate);
-        return ResponseJsonEntity.ok("选择成功");
+        return ResponseJsonEntity.ok("志愿提交成功");
+    }
+
+    @GetMapping("/choice")
+    public ResponseEntity<List<Choice>> getChoice(Integer mid){
+        List<Choice> list = new Choice().selectList(new QueryWrapper<Choice>().eq("m_id", mid));
+        return ObjectUtils.isEmpty(list)?ResponseEntity.ok(new ArrayList<>()):ResponseEntity.ok(list);
     }
 
 }

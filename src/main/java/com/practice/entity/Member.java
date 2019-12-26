@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
 
@@ -100,6 +101,7 @@ public class Member extends Model implements Serializable {
      */
     @TableField(value = "project_name")
     private String projectName;
+
 
     @Override
     protected Serializable pkVal() {

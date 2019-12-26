@@ -1,12 +1,14 @@
 package com.practice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.practice.annotation.Access;
 import com.practice.dto.*;
 import com.practice.entity.Choice;
+import com.practice.entity.Member;
 import com.practice.entity.Project;
 import com.practice.status.AccessPeople;
 import com.practice.status.ProjectStatus;
@@ -26,6 +28,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/project")
 public class ProjectController {
+
+
+
 
     @Autowired
     private ProjectService projectService;
@@ -135,8 +140,8 @@ public class ProjectController {
 
     @PostMapping("/choice")
     public ResponseEntity choiceProject(@RequestBody List<Choice> choices){
-        choices.forEach(Model::insertOrUpdate);
-        return ResponseJsonEntity.ok("志愿提交成功");
+
+        return projectService.choiceProject(choices);
     }
 
     @GetMapping("/choice")
@@ -144,5 +149,6 @@ public class ProjectController {
         List<Choice> list = new Choice().selectList(new QueryWrapper<Choice>().eq("m_id", mid));
         return ObjectUtils.isEmpty(list)?ResponseEntity.ok(new ArrayList<>()):ResponseEntity.ok(list);
     }
+
 
 }

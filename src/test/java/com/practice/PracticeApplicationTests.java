@@ -2,6 +2,7 @@ package com.practice;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -61,18 +62,22 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads2() {
+//        Project project = projectMapper.selectById(41);
+//        new Project().update(new UpdateWrapper<Project>().setSql("first = first +1").eq("p_id",31));
 
-        for (int i=1 ;i<10;i++) {
-            Project project = new Project();
-            project.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
-                    "");
-            project.setMember(5);
-            project.setPName("综合实践管理系统888"+i);
-            project.setTeacherId(i+10);
-            project.setStatus(4);
-            project.setTeacherName("teacher"+i);
-            projectMapper.insert(project);
-        }
+
+
+//        for (int i=1 ;i<10;i++) {
+//            Project project = new Project();
+//            project.setContent("选课规则：学生选择三个项目，分为一二三志愿提交，然后老师先从选了自己项目为一志愿的学生中挑选，若没选满，则从第二志愿选中其项目而又没在第一志愿被选取得学生中挑选。若三个志愿都没选到，则进入二次选择。从未满人的项目的选择，重复之前操作， 若二次选择还是没有呗选上的学生，管理员直接帮其加入剩下的未满人的项目中。 可以重复提交，已最后一次提交为准。" +
+//                    "");
+//            project.setMember(5);
+//            project.setPName("综合实践管理系统888"+i);
+//            project.setTeacherId(i+10);
+//            project.setStatus(4);
+//            project.setTeacherName("teacher"+i);
+//            projectMapper.insert(project);
+//        }
     }
 
     @Test

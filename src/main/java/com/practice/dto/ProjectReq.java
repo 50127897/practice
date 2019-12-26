@@ -22,10 +22,10 @@ public class ProjectReq implements Serializable {
 
     private Integer teacherId;
 
-    private Integer current = 1;
+    private Integer current;
 
 
-    private Integer size = 14;
+    private Integer size;
 
     private String pName;
 

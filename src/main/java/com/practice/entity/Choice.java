@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -44,6 +45,9 @@ public class Choice extends Model implements Serializable {
 
     @TableField(value = "choice_intro")
     private String choiceIntro;
+
+    @Transient
+    private Member member;
 
     @Override
     protected Serializable pkVal() {

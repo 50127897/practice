@@ -10,7 +10,9 @@
 根据参数查询：GET /project                             ok
 管理员审批：Patch /project                            ok
 
-根据项目id获取学生信息(假如参数没有type，获取被老师选中的)：GET /project/students
+根据项目id获取被老师选中的学生信息：GET /project/students        *
+根据项目id获取被已选志愿的学生信息(GET /project/stuChoice       *ok
 学生提交志愿：POST /project/choice   (参数choice里面有带有原本的id则为更新，无则新增)  ok
 
 获取学生已提交志愿GET /project/choice   ok
+教师选择学生 POST /project/choose

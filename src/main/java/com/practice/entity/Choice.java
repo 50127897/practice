@@ -46,7 +46,7 @@ public class Choice extends Model implements Serializable {
     @TableField(value = "choice_intro")
     private String choiceIntro;
 
-    @Transient
+    @TableField(exist=false)
     private Member member;
 
     @Override

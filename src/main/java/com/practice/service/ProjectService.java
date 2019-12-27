@@ -81,26 +81,26 @@ public class ProjectService {
     }
 
 
+    public ResponseEntity getStuChoiceOnProject(ProjectStudent projectStudent) {
+        IPage<Choice> iPage;
+        Integer type = projectStudent.getType();
+        boolean typeFlag = type==null?false:true;
+        iPage = new Choice().selectPage(new Page(projectStudent.getCurrent(),projectStudent.getSize()),new QueryWrapper<Choice>().eq("p_id", projectStudent.getPId()).eq(typeFlag,"type", type));
+        iPage.getRecords().forEach(choice -> {
+            Member member =(Member) new Member().selectById(choice.getMId());
+            choice.setMember(member);
+        });
+        return ResponseEntity.ok(iPage);
+    }
+
     public ResponseEntity getStudentInfo(ProjectStudent projectStudent) {
         Project project = (Project) new Project().selectOne(new QueryWrapper<Project>().eq("p_id", projectStudent.getPId()));
         List<Member> members = new LinkedList<>();
-        IPage<Choice> iPage;
         Integer type = projectStudent.getType();
-        if (type == null) {
             JSON.parseObject(project.getSelectedIds(), new TypeReference<List<Integer>>(){}).forEach(
                     id -> members.add((Member) new Member().selectById((Integer) id))
             );
             return ResponseEntity.ok(members);
-        } else {
-            iPage = new Choice().selectPage(new Page(1,2),new QueryWrapper<Choice>().eq("p_id", projectStudent.getPId()).eq("type", type));
-            iPage.getRecords().forEach(choice -> {
-                Member member =(Member) new Member().selectById(choice.getMId());
-                choice.setMember(member);
-                members.add(member);
-            });
-        }
-
-        return ResponseEntity.ok(iPage);
     }
 
 

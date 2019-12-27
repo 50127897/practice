@@ -131,24 +131,60 @@ public class ProjectController {
     }
 
 
+    /**
+     * 教师查看学生选择志愿信息
+     * @param student
+     * @return
+     */
+    @Access(exclude = AccessPeople.Student)
+    @GetMapping("/stuChoice")
+    public ResponseEntity getStuChoiceOnProject(ProjectStudent student){
+        return projectService.getStuChoiceOnProject(student);
+    }
+
+
+    /**
+     * 获取项目中已录取的学生信息
+     * @param student
+     * @return
+     */
     @Access(exclude = AccessPeople.Student)
     @GetMapping("/students")
-    public ResponseEntity getStuOnProject(@RequestBody ProjectStudent student){
+    public ResponseEntity getStuOnProject(ProjectStudent student){
         return projectService.getStudentInfo(student);
     }
 
 
+    /**
+     * 学生提交志愿
+     * @param choices
+     * @return
+     */
     @PostMapping("/choice")
     public ResponseEntity choiceProject(@RequestBody List<Choice> choices){
-
         return projectService.choiceProject(choices);
     }
 
+    /**
+     * 获取学生志愿信息
+     * @param mid
+     * @return
+     */
     @GetMapping("/choice")
     public ResponseEntity<List<Choice>> getChoice(Integer mid){
         List<Choice> list = new Choice().selectList(new QueryWrapper<Choice>().eq("m_id", mid));
         return ObjectUtils.isEmpty(list)?ResponseEntity.ok(new ArrayList<>()):ResponseEntity.ok(list);
     }
 
+
+    @PostMapping("/submitChoice")
+    public ResponseEntity chooseStudent(@RequestBody List<Choice> list){
+        System.out.println(list);
+        //cid 删除志愿
+        //mid 添加至项目
+        //pid 志愿数-1
+        //selected +1 判断isFull
+        return ResponseEntity.ok(1);
+    }
 
 }

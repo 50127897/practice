@@ -15,4 +15,9 @@ public class ProjectStudent {
     private Integer pId;
 
     private Integer type;
+
+    private Integer current;
+
+    private Integer size;
+
 }

@@ -103,6 +103,12 @@ public class Member extends Model implements Serializable {
     private String projectName;
 
 
+    /**
+     * 前端选中标志
+     */
+    @TableField(exist=false)
+    private Integer choose = 0;
+
     @Override
     protected Serializable pkVal() {
         return mId;

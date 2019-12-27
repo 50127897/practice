@@ -7,8 +7,8 @@ spring:
   datasource:
     url: jdbc:mysql:///practice_system?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
     username: root
-     password: cvte1234
-#    password: root
+#     password: cvte1234
+    password: root
   redis:
     host: 127.0.0.1
     port: 6379

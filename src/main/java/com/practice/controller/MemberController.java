@@ -1,5 +1,8 @@
 package com.practice.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.practice.dto.*;
 import com.practice.entity.Member;
 import com.practice.service.MemberService;
@@ -10,6 +13,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 人员controller
@@ -82,6 +86,32 @@ public class MemberController {
             memberService.logout(token);
         }
         return ResponseJsonEntity.ok("成功退出");
+    }
+
+
+    /**
+     * @param req 获取全部学生信息
+     * @return
+     */
+    @GetMapping
+    public ResponseEntity getAllStu(StuReq req) {
+        boolean classFlag = req.getClasses() != null;
+        boolean collegeFlag = req.getCollege() != null;
+        boolean gradeFlag = req.getGrade() != null;
+        boolean majorFlag = req.getMajor() != null;
+        boolean selectedFlag = req.getSelected() != null;
+        boolean nameFlag = req.getName() != null;
+        req.setCurrent(req.getCurrent()==null?1:req.getCurrent());
+        req.setSize(req.getSize()==null?12:req.getSize());
+        IPage iPage = new Member().selectPage(new Page(req.getCurrent(), req.getSize()), new QueryWrapper<Member>().like(classFlag, "classes", req.getClasses())
+                .like(collegeFlag, "college", req.getCollege())
+                .like(gradeFlag, "grade", req.getGrade())
+                .like(majorFlag, "major", req.getMajor())
+                .like(selectedFlag, "selected", req.getSelected())
+                .like(nameFlag, "name", req.getName())
+                .eq("type", req.getType())
+        );
+        return ResponseEntity.ok(iPage);
     }
 
 }

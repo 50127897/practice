@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Data
 public class ProjectReq implements Serializable {
 
-    @NotNull(message = "Project id can't be null")
+
     private Integer pId;
 
     @Range(min = 3, max = 4, message = "Illegal status value")
@@ -29,7 +29,15 @@ public class ProjectReq implements Serializable {
 
     private String pName;
 
+    /**
+     * 根据老师名称模糊查询
+     */
+    private String teacherNameLike;
 
+    /**
+     * 是否满人
+     */
+    private Integer isFull;
 
     private String rejectContent;
 }

@@ -1,14 +1,11 @@
 package com.practice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.practice.annotation.Access;
 import com.practice.dto.*;
 import com.practice.entity.Choice;
-import com.practice.entity.Member;
 import com.practice.entity.Project;
 import com.practice.status.AccessPeople;
 import com.practice.status.ProjectStatus;
@@ -61,9 +58,9 @@ public class ProjectController {
      * @param pId 课程id
      * @return
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseEntity> delete(@PathVariable("id") Integer pId){
-        return ResponseEntity.ok(projectService.delete(pId));
+    @DeleteMapping("/{pId}")
+    public ResponseEntity<ResponseEntity> delete(@PathVariable Integer pId){
+        return projectService.delete(pId);
     }
 
     /**
@@ -101,6 +98,9 @@ public class ProjectController {
         boolean statusFlag = req.getStatus() != null && ProjectStatus.isIllegal(req.getStatus());
         boolean teacherIdFlag = req.getTeacherId() != null;
         boolean pNameFlag = req.getPName() != null;
+        boolean teacherNameFlag = req.getTeacherNameLike() != null;
+        boolean isFullFlag = req.getIsFull() != null;
+
         req.setCurrent(req.getCurrent()==null?1:req.getCurrent());
         req.setSize(req.getSize()==null?14:req.getSize());
         IPage<Project> projectList = new Project().selectPage(new Page(req.getCurrent(),req.getSize()),
@@ -108,6 +108,8 @@ public class ProjectController {
                                            .eq(idFlag,"p_id",req.getPId())
                                            .eq(teacherIdFlag, "teacher_id",req.getTeacherId())
                                             .like(pNameFlag,"p_name",req.getPName())
+                                            .eq(isFullFlag,"is_full",req.getIsFull())
+                                            .like(teacherNameFlag,"teacher_name",req.getTeacherNameLike())
         );
         return ResponseEntity.ok(projectList);
     }
@@ -177,14 +179,28 @@ public class ProjectController {
     }
 
 
+    /**
+     * 老师选择学生
+     * @param list
+     * @return
+     */
     @PostMapping("/submitChoice")
     public ResponseEntity chooseStudent(@RequestBody List<Choice> list){
-        System.out.println(list);
-        //cid 删除志愿
-        //mid 添加至项目
-        //pid 志愿数-1
-        //selected +1 判断isFull
-        return ResponseEntity.ok(1);
+        Project project = (Project) new Project().selectById(list.get(0).getPId());
+        if (project.getMember() < project.getSelected()+list.size()){
+            return ResponseEntity.ok("所选人数超出所需人数");
+        }
+        return this.projectService.chooseStudent(list);
+    }
+
+    /**
+     * 学生获取志愿结果
+     * @param mid
+     * @return
+     */
+    @GetMapping("/result")
+    public ResponseEntity<ResultResp> getResult(Integer mid){
+        return projectService.getResult(mid);
     }
 
 }

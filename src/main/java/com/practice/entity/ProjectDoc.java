@@ -3,6 +3,7 @@ package com.practice.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,7 +14,16 @@ import java.util.Date;
  * 项目文档表
  */
 @Data
-public class ProjectDoc implements Serializable {
+public class ProjectDoc extends Model implements Serializable {
+
+    public ProjectDoc(){}
+
+    public ProjectDoc(int studentId, int type, String fileName){
+        this.studentId = studentId;
+        this.type = type;
+        this.pdName = fileName;
+        this.createTime = new Date();
+    }
 
     /**
      * 文档编号
@@ -39,31 +49,13 @@ public class ProjectDoc implements Serializable {
     private Integer studentId;
 
     /**
-     * 学生姓名
-     */
-    @TableField(value = "student_name")
-    private String studentName;
-
-    /**
-     * 教师id
-     */
-    @TableField(value = "teacher_id")
-    private Integer teacherId;
-
-    /**
-     * 教师名称
-     */
-    @TableField(value = "teacher_name")
-    private String teacherName;
-
-    /**
      * 上传日期
      */
     @TableField(value = "create_time")
     private Date createTime;
 
-    /**
-     * 文档路径
-     */
-    private String url;
+    @Override
+    protected Serializable pkVal() {
+        return pdId;
+    }
 }

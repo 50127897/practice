@@ -2,11 +2,13 @@ package com.practice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.practice.annotation.Access;
 import com.practice.dto.*;
 import com.practice.entity.Choice;
 import com.practice.entity.Project;
+import com.practice.service.MessageService;
 import com.practice.status.AccessPeople;
 import com.practice.status.ProjectStatus;
 import com.practice.service.ProjectService;
@@ -16,7 +18,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,9 +28,6 @@ import java.util.List;
 @RequestMapping("/project")
 public class ProjectController {
 
-
-
-
     @Autowired
     private ProjectService projectService;
 
@@ -37,8 +36,11 @@ public class ProjectController {
      * @param project
      * @return
      */
+    @Autowired
+    private MessageService messageService;
+
     @PostMapping
-    public ResponseEntity<BaseResp> addProject(@RequestBody @Validated Project project){
+    public ResponseEntity<BaseResp> addProject(@RequestBody @Validated Project project) {
         return projectService.addProject(project);
     }
 
@@ -48,7 +50,7 @@ public class ProjectController {
      * @return
      */
     @PutMapping
-    public ResponseEntity<BaseResp> change(@RequestBody @Validated Project project){
+    public ResponseEntity<BaseResp> change(@RequestBody @Validated Project project) {
         return projectService.change(project);
     }
 
@@ -59,17 +61,18 @@ public class ProjectController {
      * @return
      */
     @DeleteMapping("/{pId}")
-    public ResponseEntity<ResponseEntity> delete(@PathVariable Integer pId){
+    public ResponseEntity delete(@PathVariable Integer pId){
         return projectService.delete(pId);
     }
 
     /**
      * 老师申请课程审核
+     *
      * @param pId 课程id
      * @return
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseEntity> publish(@PathVariable("id") Integer pId){
+    public ResponseEntity<ResponseEntity> publish(@PathVariable("id") Integer pId) {
         return ResponseEntity.ok(projectService.publish(pId));
     }
 
@@ -90,10 +93,9 @@ public class ProjectController {
      * 老师ID
      * 状态
      * 课程列表
-     * 课程名，模糊查询
      */
     @GetMapping
-    public ResponseEntity getProject(ProjectReq req){
+    public ResponseEntity getProject(@RequestBody ProjectReq req) {
         boolean idFlag = req.getPId() != null;
         boolean statusFlag = req.getStatus() != null && ProjectStatus.isIllegal(req.getStatus());
         boolean teacherIdFlag = req.getTeacherId() != null;
@@ -103,7 +105,7 @@ public class ProjectController {
 
         req.setCurrent(req.getCurrent()==null?1:req.getCurrent());
         req.setSize(req.getSize()==null?14:req.getSize());
-        IPage<Project> projectList = new Project().selectPage(new Page(req.getCurrent(),req.getSize()),
+        IPage projectList = new Project().selectPage(new Page<Project>(req.getCurrent(),req.getSize()),
                 new QueryWrapper<Project>().eq(statusFlag,"status",req.getStatus())
                                            .eq(idFlag,"p_id",req.getPId())
                                            .eq(teacherIdFlag, "teacher_id",req.getTeacherId())
@@ -117,16 +119,20 @@ public class ProjectController {
     /**
      * 管理员审批待申请课程
      */
+    @Access(AccessPeople.Admin)
     @PatchMapping
-    public ResponseEntity approve(@RequestBody ProjectReq req){
+    public ResponseEntity approve(@RequestBody @Validated ProjectReq req){
         Project project = (Project) new Project().selectById(req.getPId());
-        if(project == null){
+        if (project == null) {
             return ResponseJsonEntity.badRequest("Illegal project id");
         }
         int status = req.getStatus();
         project.setStatus(status);
-        if(status == ProjectStatus.Reject.getStatus()){
+        if (status == ProjectStatus.Reject.getStatus()) {
             project.setRejectContent(req.getRejectContent());
+            messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》审核失败", req.getRejectContent(), req.getAdminId());
+        } else {
+            messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》审核成功", null, req.getAdminId());
         }
         project.insertOrUpdate();
         return ResponseJsonEntity.ok("Approve success");
@@ -152,7 +158,7 @@ public class ProjectController {
      */
     @Access(exclude = AccessPeople.Student)
     @GetMapping("/students")
-    public ResponseEntity getStuOnProject(ProjectStudent student){
+    public ResponseEntity getStuOnProject(@RequestBody ProjectStudent student) {
         return projectService.getStudentInfo(student);
     }
 
@@ -163,8 +169,9 @@ public class ProjectController {
      * @return
      */
     @PostMapping("/choice")
-    public ResponseEntity choiceProject(@RequestBody List<Choice> choices){
-        return projectService.choiceProject(choices);
+    public ResponseEntity choiceProject(@RequestBody List<Choice> choices) {
+        choices.forEach(Model::insertOrUpdate);
+        return ResponseJsonEntity.ok("选择成功");
     }
 
     /**
@@ -173,9 +180,9 @@ public class ProjectController {
      * @return
      */
     @GetMapping("/choice")
-    public ResponseEntity<List<Choice>> getChoice(Integer mid){
-        List<Choice> list = new Choice().selectList(new QueryWrapper<Choice>().eq("m_id", mid));
-        return ObjectUtils.isEmpty(list)?ResponseEntity.ok(new ArrayList<>()):ResponseEntity.ok(list);
+    public ResponseEntity getChoice(Integer mid){
+        List list = new Choice().selectList(new QueryWrapper<Choice>().eq("m_id", mid));
+        return ObjectUtils.isEmpty(list)?ResponseEntity.ok(Collections.EMPTY_LIST):ResponseEntity.ok(list);
     }
 
 

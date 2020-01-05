@@ -43,6 +43,9 @@ public class ProjectService {
     public static final Project PROJECT = new Project();
 
     @Autowired
+    private MessageService messageService;
+
+    @Autowired
     private ProjectMapper projectMapper;
 
     @Autowired
@@ -147,6 +150,7 @@ public class ProjectService {
             member.setSelected(1);
             member.setTeacherId(project.getTeacherId());
             member.insertOrUpdate();
+            messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》已被选中", null, project.getTeacherId());
             //project更改 添加学生id
             String ids = project.getSelectedIds();
             if(ids==null){
@@ -161,7 +165,7 @@ public class ProjectService {
             project.setSelectedIds(JSON.toJSONString(idsList));
             //判断是否满人
             project.setSelected(project.getSelected()+1);
-            if(project.getSelected() == project.getMember()){
+            if(project.getSelected().equals(project.getMember())){
                 project.setIsFull(1);
             }
             project.insertOrUpdate();
@@ -173,6 +177,7 @@ public class ProjectService {
                         case 1: PROJECT.update(new UpdateWrapper<Project>().setSql(firstSub).eq("p_id",memberChoice.getPId())); break;
                         case 2: PROJECT.update(new UpdateWrapper<Project>().setSql(secondSub).eq("p_id",memberChoice.getPId())); break;
                         case 3: PROJECT.update(new UpdateWrapper<Project>().setSql(thirdSub).eq("p_id",memberChoice.getPId())); break;
+                        default:
                     }
                     //删除志愿表记录
                     memberChoice.deleteById();
@@ -180,7 +185,6 @@ public class ProjectService {
             }
 
         });
-        //TODO 发送邮箱通知学生
         return ResponseEntity.ok(1);
     }
 

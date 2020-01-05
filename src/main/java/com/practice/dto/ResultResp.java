@@ -6,6 +6,14 @@ import lombok.Data;
 @Data
 public class ResultResp {
     /**
+     * 项目编号
+     */
+    private Integer pid;
+    /**
+     * 项目编号
+     */
+    private Integer teacherId;
+    /**
      * 项目名称
      */
     private String pName;

@@ -48,6 +48,14 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads() {
+        List list = new ProjectDoc().selectList(new QueryWrapper<ProjectDoc>().eq("teacher_id", 11).le("type", 10));
+        System.out.println(list);
+//        List list = new ProjectTime().selectList(new QueryWrapper<ProjectTime>().eq("type", 1));
+//        System.out.println(list);
+//        String projectPath = System.getProperty("user.dir");
+//        System.out.println(projectPath);
+//        String fileDirPath = projectPath.substring(0, projectPath.lastIndexOf('\\') + 1) + "upload\\";
+//        System.out.println(fileDirPath);
 //        for (int i=1 ;i<10;i++) {
 //            List<Member> list = memberMapper.selectAll();
 //            System.out.println(list);

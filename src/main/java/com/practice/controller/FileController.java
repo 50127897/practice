@@ -1,9 +1,11 @@
 package com.practice.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.practice.dto.ResponseJsonEntity;
+import com.practice.entity.Member;
 import com.practice.entity.ProjectDoc;
-import com.sun.tools.internal.ws.wsdl.document.http.HTTPUrlEncoded;
+//import com.sun.tools.internal.ws.wsdl.document.http.HTTPUrlEncoded;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,8 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -30,7 +34,8 @@ public class FileController {
 
     private final String projectPath = System.getProperty("user.dir");
 
-    private final String fileDirPath = projectPath.substring(0, projectPath.lastIndexOf('/') + 1) + "upload/";
+//    private final String fileDirPath = projectPath.substring(0, projectPath.lastIndexOf('/') + 1) + "upload/";
+    private final String fileDirPath = projectPath.substring(0, projectPath.lastIndexOf('\\') + 1) + "upload\\";
 
     @ResponseBody
     @PostMapping
@@ -44,7 +49,8 @@ public class FileController {
         int studentId = Integer.parseInt(req.getParameter("studentId"));
         int type = Integer.parseInt(req.getParameter("type"));
 
-        String filePath = fileDirPath + studentId + "/" + type + "/" + fileName;
+//        String filePath = fileDirPath + studentId + "/" + type + "/" + fileName;
+        String filePath = fileDirPath + studentId + "\\" + type + "\\" + fileName;
         File newFile = new File(filePath);
         if (!newFile.exists()) {
             Files.createDirectories(newFile.toPath());
@@ -53,10 +59,17 @@ public class FileController {
         ProjectDoc projectDoc = (ProjectDoc) new ProjectDoc().selectOne(new QueryWrapper<ProjectDoc>().eq("student_id", studentId).eq("type", type));
         if (projectDoc == null) {
             file.transferTo(newFile);
-            new ProjectDoc(studentId, type, fileName).insert();
+            Member member = (Member) new Member().selectById(studentId);
+            ProjectDoc doc = new ProjectDoc(studentId, type, fileName);
+            doc.setCreateTime( new Date());
+            doc.setStudentName(member.getName());
+            doc.setTeacherId(member.getTeacherId());
+            doc.setPId(member.getProjectId());
+            doc.insert();
         } else {
             file.transferTo(newFile);
             projectDoc.setPdName(fileName);
+            projectDoc.setCreateTime(new Date());
             projectDoc.updateById();
         }
         return ResponseJsonEntity.ok("上传成功");
@@ -73,8 +86,10 @@ public class FileController {
         if (projectDoc == null) {
             outputStream.write(((String) Objects.requireNonNull(ResponseJsonEntity.badRequest("Illegal param").getBody())).getBytes());
         } else {
-            String filePath = fileDirPath + studentId + "/" + type + "/" + projectDoc.getPdName();
+//            String filePath = fileDirPath + studentId + "/" + type + "/" + projectDoc.getPdName();
+            String filePath = fileDirPath + studentId + "\\" + type + "\\" + projectDoc.getPdName();
             response.setHeader("Content-Type","application/octet-stream;charset=UTF-8");
+            response.setCharacterEncoding("UTF-8");
             response.setHeader("Content-Disposition","attachment; filename="+ URLEncoder.encode(projectDoc.getPdName(),"UTF-8"));
             byte[] bytes = new byte[1024];
             try (FileInputStream fileInputStream = new FileInputStream(new File(filePath))) {
@@ -86,5 +101,23 @@ public class FileController {
             }
         }
         outputStream.close();
+    }
+
+    @GetMapping("/lists")
+    public ResponseEntity getAll(Integer studentId,Integer pid){
+        Boolean pidFlag = pid==null?false:true;
+        Boolean stuIdFlag = studentId==null?false:true;
+        Member member = (Member) new Member().selectById(studentId);
+        //教师或管理员查询所有文档
+        if (member == null||member.getTeacherId() == null) {
+            return ResponseEntity.ok(new ProjectDoc().selectList(new QueryWrapper<ProjectDoc>().eq(stuIdFlag,"teacher_id", studentId).eq(pidFlag,"pid",pid).le("type", 14)));
+        }
+        //获取小组文档
+        List list = new ProjectDoc().selectList(new QueryWrapper<ProjectDoc>().eq(stuIdFlag,"teacher_id", member.getTeacherId()).le("type", 10).eq(pidFlag,"pid",pid));
+        //获取个人文档
+        List list2 = new ProjectDoc().selectList(new QueryWrapper<ProjectDoc>().eq(stuIdFlag,"student_id", studentId).ge("type", 11).eq(pidFlag,"pid",pid).le("type", 14));
+
+        list.addAll(list2);
+        return ResponseEntity.ok(list);
     }
 }

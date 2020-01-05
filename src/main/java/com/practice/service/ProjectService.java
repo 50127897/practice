@@ -203,6 +203,8 @@ public class ProjectService {
         resultResp.setContent(project.getContent());
         resultResp.setFile(project.getFile());
         resultResp.setPName(project.getPName());
+        resultResp.setPid(project.getPId());
+        resultResp.setTeacherId(project.getTeacherId());
         return ResponseEntity.ok(resultResp);
     }
 }

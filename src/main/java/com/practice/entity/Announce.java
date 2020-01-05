@@ -41,7 +41,7 @@ public class Announce extends Model implements Serializable {
     /**
      *通知创建日期
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @TableField(value = "create_time")
     private Date createTime;
 

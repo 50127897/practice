@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.practice.config.Sha256;
 import com.practice.mapper.*;
 import com.practice.entity.*;
+import com.practice.repository.MessageRepository;
+import jdk.nashorn.internal.runtime.options.Option;
 import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ import java.util.List;
 
 @SpringBootTest
 class PracticeApplicationTests {
+
+    @Autowired
+    private MessageRepository msg;
 
     @Autowired
     private MemberMapper memberMapper;
@@ -48,8 +53,11 @@ class PracticeApplicationTests {
 
     @Test
     void contextLoads() {
-        List list = new ProjectDoc().selectList(new QueryWrapper<ProjectDoc>().eq("teacher_id", 11).le("type", 10));
-        System.out.println(list);
+        List<Message> select = msg.select(11);
+        System.out.println(select);
+        System.out.println(select.get(0));
+//        List list = new ProjectDoc().selectList(new QueryWrapper<ProjectDoc>().eq("teacher_id", 11).le("type", 10));
+//        System.out.println(list);
 //        List list = new ProjectTime().selectList(new QueryWrapper<ProjectTime>().eq("type", 1));
 //        System.out.println(list);
 //        String projectPath = System.getProperty("user.dir");

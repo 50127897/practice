@@ -95,7 +95,7 @@ public class ProjectController {
      * 课程列表
      */
     @GetMapping
-    public ResponseEntity getProject(@RequestBody ProjectReq req) {
+    public ResponseEntity getProject(ProjectReq req) {
         boolean idFlag = req.getPId() != null;
         boolean statusFlag = req.getStatus() != null && ProjectStatus.isIllegal(req.getStatus());
         boolean teacherIdFlag = req.getTeacherId() != null;
@@ -132,7 +132,7 @@ public class ProjectController {
             project.setRejectContent(req.getRejectContent());
             messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》审核失败", req.getRejectContent(), req.getAdminId());
         } else {
-            messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》审核成功", null, req.getAdminId());
+            messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》审核成功", "《" + project.getPName() + "》审核成功", req.getAdminId());
         }
         project.insertOrUpdate();
         return ResponseJsonEntity.ok("Approve success");
@@ -158,7 +158,7 @@ public class ProjectController {
      */
     @Access(exclude = AccessPeople.Student)
     @GetMapping("/students")
-    public ResponseEntity getStuOnProject(@RequestBody ProjectStudent student) {
+    public ResponseEntity getStuOnProject(ProjectStudent student) {
         return projectService.getStudentInfo(student);
     }
 
@@ -170,8 +170,7 @@ public class ProjectController {
      */
     @PostMapping("/choice")
     public ResponseEntity choiceProject(@RequestBody List<Choice> choices) {
-        choices.forEach(Model::insertOrUpdate);
-        return ResponseJsonEntity.ok("选择成功");
+        return this.projectService.choiceProject(choices);
     }
 
     /**

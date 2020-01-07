@@ -4,7 +4,10 @@ package com.practice.controller;
 import com.practice.dto.AnnounceResp;
 import com.practice.dto.BaseResp;
 import com.practice.entity.Announce;
+import com.practice.entity.Message;
+import com.practice.repository.MessageRepository;
 import com.practice.service.AnnounceService;
+import com.practice.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +25,9 @@ public class AnnounceController {
     @Autowired
     private AnnounceService announceService;
 
+    @Autowired
+    private MessageRepository msg;
+
     /**
      * @param type 类型 1管理员 2教师 3学生
      * @param title 根据通知标题模糊查询
@@ -29,15 +35,26 @@ public class AnnounceController {
      */
     @GetMapping
     public BaseResp<List<AnnounceResp>> SelectAnnounce(@RequestParam(required = false) Integer type,
-                                                       @RequestParam(required = false) String title){
+                                                       @RequestParam(required = false) String title,
+                                                       @RequestParam(required = false) Integer mid){
         List<Announce> list = announceService.selectAnnounce(type, title);
         ArrayList<AnnounceResp> resps = new ArrayList<>();
+        List<Message> list1 = msg.select(mid);
+
         list.forEach(announce -> {
             AnnounceResp resp = new AnnounceResp();
             resp.setAId(announce.getAId());
             resp.setTime(announce.getCreateTime());
             resp.setTitle(announce.getTitle());
             resp.setContent(announce.getContent());
+            resps.add(resp);
+        });
+
+        list1.forEach(message -> {
+            AnnounceResp resp = new AnnounceResp();
+            resp.setTime(message.getCreateTime());
+            resp.setTitle(message.getTitle());
+            resp.setContent(message.getContent());
             resps.add(resp);
         });
         return BaseResp.success(resps);

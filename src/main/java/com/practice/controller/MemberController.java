@@ -49,6 +49,8 @@ public class MemberController {
         resp.setMId(member.getMId());
         resp.setType(member.getType());
         resp.setToken(token);
+        resp.setPid(member.getProjectId());
+        resp.setName(member.getName());
         return ResponseEntity.ok(BaseResp.success(resp, "登陆成功"));
     }
 

@@ -21,4 +21,12 @@ public class LoginResp {
      * token
      */
     private String token;
+    /**
+     * 项目id
+     */
+    private Integer pid;
+    /**
+     * 以后名称
+     */
+    private String name;
 }

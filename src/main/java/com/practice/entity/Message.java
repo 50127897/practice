@@ -1,8 +1,10 @@
 package com.practice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author hzq
@@ -29,4 +31,8 @@ public class Message {
 
     @Column(name = "content", columnDefinition = "TEXT")
     private String content;
+
+    @JsonFormat(pattern = "yyyy-MM-dd ",timezone = "GMT+8")
+    @Column(name = "create_time", columnDefinition = "date")
+    private Date createTime;
 }

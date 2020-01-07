@@ -6,6 +6,7 @@ import com.practice.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,7 @@ public class MessageService {
         message.setTitle(title);
         message.setContent(content);
         message.setFromMember(fromId);
+        message.setCreateTime(new Date());
         messageRepository.save(message);
     }
 
@@ -39,6 +41,7 @@ public class MessageService {
             message.setTitle(title);
             message.setContent(content);
             message.setFromMember(fromId);
+            message.setCreateTime(new Date());
             messageRepository.save(message);
         });
     }

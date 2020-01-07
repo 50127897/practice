@@ -174,7 +174,7 @@ public class TimeController {
         resp.setProjectFinalStart(list.get(0).getBeginTime());
         resp.setProjectFinalEnd(list.get(0).getEndTime());
 
-        System.out.println(resp);
+
         return  ResponseEntity.ok(resp);
     }
 

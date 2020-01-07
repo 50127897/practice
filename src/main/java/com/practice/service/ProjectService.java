@@ -150,7 +150,7 @@ public class ProjectService {
             member.setSelected(1);
             member.setTeacherId(project.getTeacherId());
             member.insertOrUpdate();
-            messageService.sendToSomeBody(project.getTeacherId(), "《" + project.getPName() + "》已被选中", null, project.getTeacherId());
+            messageService.sendToSomeBody(member.getMId(), "《" + project.getPName() + "》已被选中", "《" + project.getPName() + "》已被选中", project.getTeacherId());
             //project更改 添加学生id
             String ids = project.getSelectedIds();
             if(ids==null){

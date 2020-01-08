@@ -29,6 +29,9 @@ spring:
     static-locations: file:E:/public/
   mvc:
     static-path-pattern: /upload/**
+  jpa:
+    hibernate:
+      ddl-auto: update
 mybatis-plus:
   mapper-locations: classpath:mapper.*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
